@@ -1,0 +1,153 @@
+I will keep notes here for the time being until the code here is fully 
+functional. 
+
+These notes will serve as ideas for where to go with things after the base 
+functionality of the APOC code is reimplemented and working in a more sane and 
+extensible way.
+
+I have included my .desktop files and modifications to the mimeapps.list just to 
+illustrate how I currently implement desktop environment integration.
+
+In Debian stretch / buster I have found that it reads ~/.config/mimeapps.list 
+not the ~/.local/share/applications/mimeapps.list
+
+It has occured to me reworking the news handler that there will be need for 
+implementing a way for handlers to do runtime configuration possibly using GUI 
+elements and I am not sure yet how I want to implement such things. 
+
+On the one hand there should be a lot of freedom for the handler scripts to do 
+this in any manner they see fit, but on the other hand, working some of this 
+functionality into the chainlink code somehow would create a uniform interface 
+that can be configured and fallback depending on the environment the way debconf 
+works. 
+
+One of the features I had in mind for the news specifically is the ability to 
+change output templates when a link is clicked perhaps, and for the youtube 
+handler, you may want to choose whether to download, view, or both for example 
+when clicking on a link.
+
+I also as you may notice, have been thinking forward about implementing html 
+output for the news handler, newspaper has a keep_article_html variable which 
+when set, exposes a article.article_html which has the body of the article with 
+all its HTML formatting retained, which differs from the article.html which it 
+has regardless that is the entire html of the page. I have put this stuff into 
+the sample news.yaml as well as settings for handling videos and images. I am 
+still working on rewriting the parser to handle these things.
+
+I am still not entirely sure about the configs, I like using yaml, its very 
+flexible but the config parsing using yaml is a bit fugly at the moment if I 
+keep this method, I probably need to create a separate config parser module for 
+checking if configs exist, creating them from skeletons if not, and reading 
+them, rather than importing yaml module itself. I may even consider switching to 
+configparser but I like yaml because its more flexible and easier to hand edit 
+yaml files with complex data in my opinion.
+
+I also am not sure yet about how to best implement the actual launching of 
+associated apps. I am leaning towards leaving this entirely up to the writer of 
+the modules as there is no real need for this to be uniform, but more flexible 
+to the handlers needs. However I do want to make it easy and uniform to change 
+the programs used... so thats what has me a bit confused as to how to proceed on 
+that front and why I haven't implemented anything but the fallbacks to 
+sensible-browser and such.  
+
+I have also included two templates for the two different kinds of handlers I've 
+used so far.
+
+Obviously I also want to make configuration tools at some point for more 
+user-friendly configuration and manipulating history/bookmarks type features. 
+I think yaml is plenty user friendly for the average dabbler to get their hands 
+dirty with some python and yaml to customize things, but for the average user, 
+more friendly interfaces should be implemented to do this stuff with a GUI 
+(GTK,QT,ncurses, or such). 
+
+I also want to try keep all this coding in the master branch with the thought in 
+mind that this will cleanly integrate into Desktop Environments, custom X based 
+setups, commandline/terminal setups, and perhaps down the road into browsers 
+themselves probably via a localhost proxy or such, handling all links even 
+inside the browser. 
+
+I realize the browsers implement this stuff already via plugins.. 
+but personally I feel the browsers, their features, and plugins, are the real 
+issue.. they give too much power to web developers and put users at risk to 
+security, privacy, and sanity issues. The whole idea here is to put the power 
+to use web based content back into the hands of the user in a simple and 
+flexible way.
+
+---
+
+Ok, I began to implement my own config parser cause that config code was rather
+atrocious, and I looked into using confuse and while it claims to eliminate a
+lot of boilerplate stuff, it lacks simple things like the ability to use differnt
+filenames and we need multiple configs here so I redid that concept in a simple
+way for now. I at some point I may fork that as a seperate project for use
+elsewhere.
+
+I also been dragging my feet finishing up the rest of this cause its nearly
+usable but I had some second thoughts about design when I thought about what it
+would look like scaled beyond the initial two handlers. 
+
+For one thing, parsing all modules in the modules dir is just stupid. What it 
+should do is search for modules if there are no local configs, and import any
+modules that are packaged along with generating the local configs. However as
+for matching the modules to any given link, this should be done by the main 
+module using config files that describe the matching criteria the handler uses.
+There is no need to import and execute a match function on every damn handler, 
+this will not scale well nor does it address intelligent handling of ambiguous
+matches.. 
+
+I.e. www.foo.com could be a news site, but maybe someone linked just
+a video or image from that domain, which is handled by a different handler.. in
+which case, we want a different handler handling that link. This has to be 
+addressed.
+
+I am also thinking of writing a systray applet I think may be the best UI for a
+Desktop Environment use case.. the kinds of UI functions I want to make are to
+add match exceptions at runtime, like if you click a news link that isn't yet
+in any of the files that specify urls for news sites.. I'm not sure how I want
+to do this yet, but I dont just want to popup an actual window or delay launching
+an unhandled link because that could get annoying. I'm thinking if a link is 
+clicked and unhandled, a helper app like a systray applet can be running while
+the handler is waiting for the browser to return, and you can just click that to
+add an exception which will then close the browser and launch the correct
+handler for that link or something like that. Having this happen also on the CL
+or a web interface will be later thoughts for use on text-mode or other use case
+where there isn't a systray available.
+
+The UI components, be they a web interface, systray applet, notifications, CLI
+arguments, whatever, would also facilitate tests of modules, overrides, viewing
+of link history and managing bookmarks and things like that.. or managing proxy
+settings, and so on.. 
+
+I used the initial approach on this rewrite of the APOC code cause I wanted to
+keep the handler modules as SIMPLE yet as FLEXIBLE as possible I didn't want to
+require people wanting to add a handler to really NEED to understand much about
+programming or how chainlink actually works. I'm now rethinking this initial
+concept of having a match() function and an openwith() function and optionally
+a parse() function as well as any number of internally used user-defined 
+functions because it doesn't scale well and doesn't assure the handlers play
+nice with one another. 
+
+That thought brings me to another consideration, logging of internal functions
+for debugging as more complex handlers are added. This too needs to be addressed.
+
+Perhaps the real solution to making simpler handlers is a UI tool to aid in doing
+so, and shipping API docs with various helper functions or allowing for variation
+of pre-packaged handlers using seperate configs.
+
+I am also still not getting a clear visual yet on how I want to manage the actual
+launching of associated applications.. and whether or not I want to write a
+module for that or leave that entirely up to each handler to do as it sees fit
+for its functionality.
+
+Having said all that, I am also thinking not only about a default mime type 
+application handler where default video, browser, editor, etc are defined, and/or
+using things like update-alternatives and sensible-program type things so if you
+want to just have all handlers use the same app for the same kind of content, you
+can do that and configure which app to use for them all simply.. and I'm thinking
+about possible priority type settings for handlers that may overlap on matching
+a particular link.
+
+I need to marinate on this awhile and recode some things. The new config module
+for example, while its ready to use I believe, I haven't yet set any of the 
+existing code up to use it yet... so.. yeah.. these are my notes as of now.. 
+for my own use as well as for anyone who may be looking in and want to help out.

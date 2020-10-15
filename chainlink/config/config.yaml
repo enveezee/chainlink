@@ -1,0 +1,18 @@
+%YAML 1.1
+---
+# Default Browser:
+browser: sensible-browser
+
+# File Extension Definitions:
+extensions_file: ~/.config/chainlink/extensions.yaml
+
+# Handler Scripts:
+handlers_dir: ~/.config/chainlink/handlers/
+
+# History/Bookmarks Files:
+bookmarks:  ~/.config/chainlink/bookmarks.yaml
+history: ~/.config/chainlink/history.yaml
+
+# HTTP/HTTPS Options:
+proxy:
+user_agent: Mozilla/5.0

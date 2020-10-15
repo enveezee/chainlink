@@ -1,0 +1,75 @@
+%YAML 1.1
+---
+# This file specifies the output format and associated app for news articles.
+
+# This is the application we will use to open news articles
+article: sensible-editor
+
+# This is the date output format string using strftime()
+date_format: '%d-%b-%Y %H:%M:%S'
+
+# This is the output template format:
+format: text
+
+# Output template:
+output: full
+
+### Templates ###
+
+# You can create as many templates as you like, they are looked up by name based
+# on the format / output settings, however the formats must be implemented in
+# the parser.
+#
+# Each - is treated as a newline terminated line, specifying \n also means a 
+# newline char, lines are intepreted literally with exception of variables that
+# are expanded when prefixed with $ 
+#
+# Currently implemented variables include: 
+#  author, body, date, img, keywords, link, summary, title, video
+#
+#  the img and video vars can be suffixed with a number e.g. $img0 is the first 
+#  image, where $img is all images in the article
+
+# html output template(s):
+html: # not yet implemented
+    
+# text output templates:
+text:
+    article:
+        - $title
+        - -----
+        - $body
+        - -----
+        - $author
+        - $date
+        - $link
+
+    body:
+        - $body
+
+    full:
+        - $title
+        - -----
+        - $summary
+        - -----
+        - $body
+        - -----
+        - $author
+        - $date
+        - $link
+        -
+        - $keywords
+
+    headline:
+        - $title
+        
+    summary:
+        - $title
+        - 
+        - $author
+        - $date
+        -
+        - $summary
+
+# program to open videos with (automatically?)
+video: # not yet implemented

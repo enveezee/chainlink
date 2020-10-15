@@ -1,0 +1,6 @@
+#!/bin/bash
+case "$1" in
+ news)mousepad "$2";rm "$2";;
+ web)chromium "$2";;
+ yt)youtube-dl -o - "$2" | mplayer -;;
+esac

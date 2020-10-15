@@ -1,0 +1,236 @@
+%YAML 1.1
+---
+7z:
+    name: 7zip archive
+    type: archive
+7za:
+    name: 7zip archive
+    type: archive
+7zip:
+    name: 7zip archive
+    type: archive
+aiff:
+    name:
+    type: audio
+ar:
+    name: ar archive
+    type: archive
+avi:
+    name: audio video interleave
+    type: video
+bat:
+    name: dos batch
+    type: text
+bmp:
+    name: bitmap image
+    type: image
+bz:
+    name: bzip archive
+    type: archive
+bz2:
+    name: bzip archive
+    type: archive
+bzip:
+    name: bzip archive
+    type: archive
+bzip2:
+    name: bzip archive
+    type: archive
+c:
+    name: c source
+    type: text
+cab:
+    name: microsoft cabinet
+    type: archive
+com:
+    name: microsoft command
+    type: executable
+cpp:
+    name: c++ source
+    type: text
+css:
+    name: cascading style sheet
+    type: text
+cxarchive:
+    name: crossover archive
+    type: archive
+deb:
+    name: debian package
+    type: archive
+doc:
+    name: microsoft word document
+    type: document
+docx:
+    name: microsoft word document
+    type: document
+exe:
+    name: microsoft windows executable
+    type: executable
+flac:
+    name: free lossless audio codec
+    type: audio
+flv:
+    name: flash video
+    type: video
+gif:
+    name: graphics interchange format
+    type: image
+gz:
+    name: gzip archive
+    type: archive
+gzip:
+    name: gzip archive
+    type: archive
+h:
+    name: c/c++ header file
+    type: text
+htm:
+    name: hypertext markup language
+    type: text
+html:
+    name: hypertext markup language
+    type: text
+ico:
+    name: windows icon
+    type: image
+ini:
+    name: ini file
+    type: text
+jpeg:
+    name: jpeg image
+    type: image
+jpg:
+    name: jpeg image
+    type: image
+jpx:
+    name: jpeg image
+    type: image
+js:
+    name: javascript source
+    type: text
+lzma:
+    name: lzma archive
+    type: archive
+m4a:
+    name: mp4 audio
+    type: audio
+m4v:
+    name: mp4 video
+    type: video
+mid:
+    name: musical instrumental digital interface
+    type: audio
+mkv:
+    name: matroska video
+    type: video
+mov:
+    name: quicktime movie
+    type: video
+mp3:
+    name: mpeg layer 3
+    type: audio
+mp4:
+    name: mp4 video
+    type: video
+mpeg:
+    name: mpeg
+    type: video
+mpg:
+    name: mpeg
+    type: video
+msi:
+    name: microsoft installer
+    type: executable
+nfo:
+    name: info
+    type: text
+odf:
+    name: open document format
+    type: document
+ogg:
+    name: vorbis audio
+    type: audio
+ogv:
+    name: vorbis video
+    type: video
+pdf:
+    name: portable document format
+    type: document
+pl:
+    name: perl source
+    type: text
+png:
+    name: portable network graphics
+    type: image
+py:
+    name: python source
+    type: text
+rar:
+    name: rar archive
+    type: archive
+rpm:
+    name: redhat package
+    type: archive
+rtf:
+    name: rich text format
+    type: document
+sh:
+    name: shell script
+    type: text
+tar:
+    name: tape archive
+    type: archive
+tg:
+    name: gzipped tape archive
+    type: archive
+tgz:
+    name: gzipped tape archive
+    type: archive
+tif:
+    name: tiff
+    type: image
+tiff:
+    name: tiff
+    type: image
+txt:
+    name: text
+    type: text
+txz:
+    name: xzipped tape archive
+    type: archive
+tz:
+    name: zipped tape archive
+    type: archive
+wav:
+    name: wave audio
+    type: audio
+webm:
+    name: web movie
+    type: video
+webp:
+    name: web picture
+    type: image
+wma:
+    name: windows media audio
+    type: audio
+wmv:
+    name: windows media video
+    type: video
+xls:
+    name: microsoft excel spreadsheet
+    type: document
+xml:
+    name: xml
+    type: text
+xz:
+    name: xz archive
+    type: archive
+yaml:
+    name: yaml
+    type: text
+yml:
+    name: yaml
+    type: text
+zip:
+    name: zip archive
+    type: archive
